@@ -1,0 +1,24 @@
+name: Go presubmit checks
+author: M. J. Fromberger
+description: Run Go tests and static checks
+branding:
+  icon: eye
+  color: green
+inputs:
+  staticcheck-version:
+    description: "Version of staticcheck to use"
+    required: false
+    default: "2020.1.6"
+runs:
+  using: composite
+  steps:
+    - name: Install staticcheck
+      shell: bash
+      env:
+        GO111MODULE: on
+        GOPROXY: https://proxy.golang.org
+        STATICCHECK_VERSION: ${{ inputs.staticcheck-version }}
+      run: $GITHUB_ACTION_PATH/install.sh
+    - name: Run presubmit checks
+      shell: bash
+      run: $GITHUB_ACTION_PATH/check.sh
