@@ -9,6 +9,10 @@ inputs:
     description: "Version of staticcheck to use"
     required: false
     default: "2020.1.6"
+  go-test-cpu:
+    description: "Comma-separated list of CPU combinations for the Go race detector"
+    required: false
+    default: "1,2"
 runs:
   using: composite
   steps:
@@ -21,4 +25,6 @@ runs:
       run: $GITHUB_ACTION_PATH/install.sh
     - name: Run presubmit checks
       shell: bash
+      env:
+        GO_TEST_CPU: ${{ inputs.go-test-cpu }}
       run: $GITHUB_ACTION_PATH/check.sh
