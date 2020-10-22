@@ -5,7 +5,7 @@ repository containing Go source code. The checks performed include:
 
 1. Ensure that all source files are formatted with  `go fmt`.
 2. Ensure that all unit tests pass.
-3. Ensure the `staticcheck` tool does not report any warnings.
+3. Ensure the [`staticcheck`][sc] tool does not report any warnings.
 
 The following example workflow demonstrates its use:
 
@@ -27,3 +27,5 @@ jobs:
     - uses: actions/checkout@v2
     - uses: creachadair/go-presubmit-action@default
 ```
+
+[sc]: https://staticcheck.io/
