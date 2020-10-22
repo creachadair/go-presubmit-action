@@ -20,8 +20,7 @@ jobs:
     name: Go presubmit
     runs-on: ubuntu-latest
     steps:
-    - name: Install Go 1.15
-      uses: actions/setup-go@v1
+    - uses: actions/setup-go@v1
       with:
         go-version: '1.15'
     - uses: actions/checkout@v2
