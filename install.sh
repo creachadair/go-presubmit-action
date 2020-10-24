@@ -1,7 +1,7 @@
 #!/bin/bash
 : ${STATICCHECK_VERSION:?missing staticcheck version}
 
-source lib.sh
+source "$(dirname $0)"/lib.sh
 
 tmp="$(mktemp -d)"
 trap "rm -fr -- $tmp" EXIT

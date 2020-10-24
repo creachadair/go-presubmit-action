@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source lib.sh
+source "$(dirname $0)"/lib.sh
 GOBIN="$(go env GOPATH)/bin"
 
 if [[ -f go.mod ]] ; then
