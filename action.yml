@@ -1,18 +1,22 @@
 name: Go presubmit checks
 author: M. J. Fromberger
 description: Run Go tests and static checks
+
 branding:
   icon: eye
   color: green
+
 inputs:
   staticcheck-version:
     description: "Version of staticcheck to use"
     required: false
     default: "2020.1.6"
+
   go-test-cpu:
     description: "Comma-separated list of CPU combinations for the Go race detector"
     required: false
     default: "1,2"
+
 runs:
   using: composite
   steps:
@@ -23,6 +27,7 @@ runs:
         GOPROXY: https://proxy.golang.org
         STATICCHECK_VERSION: ${{ inputs.staticcheck-version }}
       run: $GITHUB_ACTION_PATH/install.sh
+
     - name: Run presubmit checks
       shell: bash
       env:
