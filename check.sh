@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+# Run presubmit checks.
+#
 source "$(dirname $0)"/lib.sh
 GOBIN="$(go env GOPATH)/bin"
 
