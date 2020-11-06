@@ -17,6 +17,11 @@ inputs:
     required: false
     default: "1,2"
 
+  go-proxy:
+    description: "The URL of the Go module proxy to use, or 'direct' to bypass"
+    required: false
+    default: "https://proxy.golang.org"
+
 runs:
   using: composite
   steps:
@@ -24,7 +29,7 @@ runs:
       shell: bash
       env:
         GO111MODULE: on
-        GOPROXY: https://proxy.golang.org
+        GOPROXY: ${{ inputs.go-proxy }}
         STATICCHECK_VERSION: ${{ inputs.staticcheck-version }}
       run: $GITHUB_ACTION_PATH/install.sh
 
@@ -32,4 +37,5 @@ runs:
       shell: bash
       env:
         GO_TEST_CPU: ${{ inputs.go-test-cpu }}
+        GOPROXY: ${{ inputs.go-proxy }}
       run: $GITHUB_ACTION_PATH/check.sh
