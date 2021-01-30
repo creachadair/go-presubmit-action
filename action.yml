@@ -7,6 +7,9 @@ branding:
   color: green
 
 inputs:
+  # The default version of staticcheck is not the most recent, which does not
+  # build with Go versions prior to 1.13. If you only need to build for newer
+  # versions of Go, you can use a more recent tag.
   staticcheck-version:
     description: "Version of staticcheck to use"
     required: false
