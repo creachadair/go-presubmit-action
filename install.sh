@@ -8,6 +8,9 @@
 
 source "$(dirname $0)"/lib.sh
 
+# Check which Go version we are using
+readonly go_version="$(go version | cut -d' ' -f3)"
+
 # Create a temporary module to run the installation.
 tmp="$(mktemp -d)"
 trap "rm -fr -- $tmp" EXIT
@@ -15,5 +18,9 @@ cd "$tmp"
 
 label "Installing staticcheck $STATICCHECK_VERSION"
 go mod init install # satisfy Go 1.11
-go install honnef.co/go/tools/cmd/staticcheck@"${STATICCHECK_VERSION}"
+if [[ "$go_version" < go1.16 ]] ; then
+    go get honnef.co/go/tools/cmd/staticcheck@"${STATICCHECK_VERSION}"
+else
+    go install honnef.co/go/tools/cmd/staticcheck@"${STATICCHECK_VERSION}"
+fi
 check
