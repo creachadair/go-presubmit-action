@@ -15,5 +15,5 @@ cd "$tmp"
 
 label "Installing staticcheck $STATICCHECK_VERSION"
 go mod init install # satisfy Go 1.11
-go get honnef.co/go/tools/cmd/staticcheck@"${STATICCHECK_VERSION}"
+go install honnef.co/go/tools/cmd/staticcheck@"${STATICCHECK_VERSION}"
 check
