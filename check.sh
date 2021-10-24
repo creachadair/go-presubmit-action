@@ -8,8 +8,9 @@ GOBIN="$(go env GOPATH)/bin"
 # Repositories may contain multiple modules.
 # Search for directories containing go.mod files and repeat
 # the checks for each, since the go tool respect module boundaries.
-find . -type f -name go.mod -print | while read -r path ; do
-    pushd "$(dirname $path)"
+find . -type f -name go.mod -print | while read -r mod ; do
+    module "Checking module %s" "$(dirname $mod)"
+    pushd "$(dirname $mod)"
 
     label "Fetching module dependencies"
     go mod download
