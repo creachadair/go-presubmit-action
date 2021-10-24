@@ -13,7 +13,9 @@ The following example workflow demonstrates its use:
 name: Go presubmit
 
 on:
-  - push
+  push:
+    branches:
+	  - main
 
 jobs:
   build:
