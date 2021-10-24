@@ -9,7 +9,7 @@ GOBIN="$(go env GOPATH)/bin"
 # Search for directories containing go.mod files and repeat
 # the checks for each, since the go tool respect module boundaries.
 find . -type f -name go.mod -print | while read -r mod ; do
-    module "Checking module %s" "$(dirname $mod)"
+    module "Checking module $(dirname $mod)"
     pushd "$(dirname $mod)"
 
     label "Fetching module dependencies"
