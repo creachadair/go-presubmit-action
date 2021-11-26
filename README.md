@@ -22,7 +22,7 @@ jobs:
     name: Go presubmit
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-go@v1
+    - uses: actions/setup-go@v2
       with:
         go-version: '1.17'
     - uses: actions/checkout@v2
