@@ -15,7 +15,7 @@ name: Go presubmit
 on:
   push:
     branches:
-	  - main
+      - main
 
 jobs:
   build:
