@@ -4,6 +4,7 @@
 #
 source "$(dirname $0)"/lib.sh
 GOBIN="$(go env GOPATH)/bin"
+GOVERS="$(go env GOVERSION)"
 
 # Repositories may contain multiple modules.
 # Search for directories containing go.mod files and repeat
@@ -33,7 +34,11 @@ EOF
     check
 
     label "Running staticcheck"
-    $GOBIN/staticcheck ./...
+    if [[ "$GOVERSION" = go1.18 ]] ; then
+        printf "\033[50C\033[1;33mSKIPPED\033[0m (not supported by Go 1.18)\n"
+    else
+        $GOBIN/staticcheck ./...
+    fi
     check
 
     popd
