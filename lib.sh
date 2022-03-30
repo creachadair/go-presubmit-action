@@ -1,5 +1,7 @@
 # Shared helpers.
 
+readonly go_version="$(go version | cut -d' ' -f3)"
+
 label() { printf "▷ \033[1;36m$*\033[0m\n" ; }
 
 module() { printf "🛠  \033[1;97m$*\033[0m\n" ; }

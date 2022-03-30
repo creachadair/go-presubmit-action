@@ -8,9 +8,6 @@
 
 source "$(dirname $0)"/lib.sh
 
-# Check which Go version we are using
-readonly go_version="$(go version | cut -d' ' -f3)"
-
 # Create a temporary module to run the installation.
 tmp="$(mktemp -d)"
 trap "rm -fr -- $tmp" EXIT

@@ -5,7 +5,6 @@
 source "$(dirname $0)"/lib.sh
 GOBIN="$(go env GOPATH)/bin"
 
-readonly govers="$(go env GOVERSION)"
 readonly scvers="$($GOBIN/staticcheck --version | cut -d' ' -f2 | cut -d. -f1)"
 
 # Repositories may contain multiple modules.
@@ -36,7 +35,7 @@ EOF
     check
 
     label "Running staticcheck"
-    if [[ ("$govers" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
+    if [[ ("$go_version" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
         printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
     else
         $GOBIN/staticcheck ./...
