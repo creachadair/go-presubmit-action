@@ -4,7 +4,9 @@
 #
 source "$(dirname $0)"/lib.sh
 GOBIN="$(go env GOPATH)/bin"
-GOVERS="$(go env GOVERSION)"
+
+readonly govers="$(go env GOVERSION)"
+readonly scvers="$($GOBIN/staticcheck --version | cut -d' ' -f2 | cut -d. -f1)"
 
 # Repositories may contain multiple modules.
 # Search for directories containing go.mod files and repeat
@@ -34,12 +36,12 @@ EOF
     check
 
     label "Running staticcheck"
-    if [[ "$GOVERSION" = go1.18 ]] ; then
-        printf "\033[50C\033[1;33mSKIPPED\033[0m (not supported by Go 1.18)\n"
+    if [[ ("$govers" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
+        printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
     else
         $GOBIN/staticcheck ./...
+	check
     fi
-    check
 
     popd
 done
