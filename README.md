@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/setup-go@v2
       with:
-        go-version: '1.17'
+        go-version: '1.18'
     - uses: actions/checkout@v2
     - uses: creachadair/go-presubmit-action@default
 ```
