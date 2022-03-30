@@ -40,7 +40,7 @@ EOF
         printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
     else
         $GOBIN/staticcheck ./...
-	check
+        check
     fi
 
     popd
