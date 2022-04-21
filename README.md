@@ -26,7 +26,7 @@ jobs:
       with:
         go-version: '1.18'
     - uses: actions/checkout@v3
-    - uses: creachadair/go-presubmit-action@default
+    - uses: creachadair/go-presubmit-action@v1
 ```
 
 [gha]: https://docs.github.com/en/actions
