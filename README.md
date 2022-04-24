@@ -17,6 +17,8 @@ on:
     branches:
       - main
 
+permissions: read-all
+
 jobs:
   build:
     name: Go presubmit
