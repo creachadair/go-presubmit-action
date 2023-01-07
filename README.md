@@ -16,18 +16,21 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 permissions: read-all
 
 jobs:
   build:
     name: Go presubmit
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/setup-go@v3
+    - uses: actions/checkout@v3
+    - name: Install Go ${{ matrix.go-version }}
+      uses: actions/setup-go@v3
       with:
         go-version: stable
-    - uses: actions/checkout@v3
     - uses: creachadair/go-presubmit-action@v1
 ```
 
