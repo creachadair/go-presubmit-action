@@ -31,7 +31,7 @@ EOF
     check
 
     label "Running unit tests"
-    go test -race -cpu="${GO_TEST_CPU}" ./...
+    go test -vet=all -race -cpu="${GO_TEST_CPU}" ./...
     check
 
     label "Running staticcheck"
