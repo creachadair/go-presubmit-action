@@ -13,7 +13,7 @@ inputs:
   staticcheck-version:
     description: "Version of staticcheck to use"
     required: false
-    default: "2023.1.3"
+    default: "2023.1.5"
 
   go-test-cpu:
     description: "Comma-separated list of CPU combinations for the Go race detector"
