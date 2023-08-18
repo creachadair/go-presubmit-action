@@ -34,12 +34,14 @@ EOF
     go test -vet=all -race -cpu="${GO_TEST_CPU}" ./...
     check
 
-    label "Running staticcheck"
-    if [[ ("$go_version" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
-        printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
-    else
-        $GOBIN/staticcheck ./...
-        check
+    if istrue "$CHECK_STATICCHECK" ; then
+        label "Running staticcheck"
+        if [[ ("$go_version" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
+            printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
+        else
+            $GOBIN/staticcheck ./...
+            check
+        fi
     fi
 
     if istrue "$CHECK_REPLACE" ; then

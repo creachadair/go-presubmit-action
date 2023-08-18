@@ -25,10 +25,15 @@ inputs:
     required: false
     default: "https://proxy.golang.org"
 
+  check-staticcheck:
+    description: "Run staticcheck over the module"
+    required: false
+    default: 'true'
+
   check-replace:
     description: "Check for replace directives in the go.mod file"
     required: false
-    default: 'false'
+    default: 'true'
 
 runs:
   using: composite
@@ -46,5 +51,6 @@ runs:
       env:
         GO_TEST_CPU: ${{ inputs.go-test-cpu }}
         GOPROXY: ${{ inputs.go-proxy }}
+        CHECK_STATICCHECK: ${{ inputs.check-staticcheck }}
         CHECK_REPLACE: ${{ inputs.check-replace }}
       run: $GITHUB_ACTION_PATH/check.sh
