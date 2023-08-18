@@ -38,6 +38,7 @@ inputs:
 runs:
   using: composite
   steps:
+    # TODO(creachadair): Don't run this if check-staticcheck is disabled.
     - name: Install staticcheck
       shell: bash
       env:
