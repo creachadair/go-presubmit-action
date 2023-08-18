@@ -14,3 +14,15 @@ check() {
         printf "\033[50C\033[1;32mSUCCESS\033[0m\n"
     fi
 }
+
+istrue() {
+    local v="${1:-}"
+    case "$v" in
+        (y|yes|t|true|1)
+            return 0
+            ;;
+        (*)
+            return 1
+            ;;
+    esac
+}

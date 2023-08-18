@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Run presubmit checks.
 #
@@ -39,6 +39,17 @@ EOF
         printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
     else
         $GOBIN/staticcheck ./...
+        check
+    fi
+
+    if istrue "$CHECK_REPLACE" ; then
+        label "Checking go.mod structure"
+        if grep '^replace ' "$mod" ; then
+            echo "^ Found replacement directives in $mod"
+            false
+        else
+            true
+        fi
         check
     fi
 
