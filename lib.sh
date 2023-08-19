@@ -22,7 +22,8 @@ check() {
 pkgpath() {
     local base="${1:?missing package path}"
     local vers="${2:-latest}"
-    if go mod why "$base" | grep -q 'does not need package' ; then
+    # N.B.: Exclude tests of dependencies for this check.
+    if go mod why -vendor "$base" | grep -q 'does not need to vendor package' ; then
         echo "$base"@"$vers"
     else
         echo "$base"
