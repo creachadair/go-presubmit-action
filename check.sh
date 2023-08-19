@@ -3,9 +3,6 @@
 # Run presubmit checks.
 #
 source "$(dirname $0)"/lib.sh
-GOBIN="$(go env GOPATH)/bin"
-
-readonly scvers="$($GOBIN/staticcheck --version | cut -d' ' -f2 | cut -d. -f1)"
 
 # Repositories may contain multiple modules.
 # Search for directories containing go.mod files and repeat
@@ -36,17 +33,15 @@ EOF
 
     if istrue "$CHECK_STATICCHECK" ; then
         label "Running staticcheck"
-        if [[ ("$go_version" =~ ^go1.18) && ("$scvers" -lt 2022) ]] ; then
-            printf "\033[50C\033[1;33mSKIPPED\033[0m (staticcheck $scvers does not support $govers)\n"
-        else
-            $GOBIN/staticcheck ./...
-            check
-        fi
+        scpath="$(pkgpath honnef.co/go/tools/cmd/staticcheck $STATICCHECK_VERSION)"
+        go run "$scpath" ./...
+        check
     fi
 
     if istrue "$CHECK_REPLACE" ; then
         label "Checking go.mod structure"
-        if grep '^replace ' "$mod" ; then
+        # N.B. We are already in the module root here.
+        if grep '^replace ' go.mod ; then
             echo "^ Found replacement directives in $mod"
             false
         else

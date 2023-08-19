@@ -7,13 +7,10 @@ branding:
   color: green
 
 inputs:
-  # The most recent versions of staticcheck do not build with Go versions
-  # prior to 1.13. If you need to build for older versions, you will need
-  # to override this with an older tag, e.g., "2020.1.6".
   staticcheck-version:
     description: "Version of staticcheck to use"
     required: false
-    default: "2023.1.5"
+    default: "latest"
 
   go-test-cpu:
     description: "Comma-separated list of CPU combinations for the Go race detector"
@@ -28,25 +25,16 @@ inputs:
   check-staticcheck:
     description: "Run staticcheck over the module"
     required: false
-    default: 'true'
+    default: "yes"
 
   check-replace:
     description: "Check for replace directives in the go.mod file"
     required: false
-    default: 'true'
+    default: "yes"
 
 runs:
   using: composite
   steps:
-    # TODO(creachadair): Don't run this if check-staticcheck is disabled.
-    - name: Install staticcheck
-      shell: bash
-      env:
-        GO111MODULE: on
-        GOPROXY: ${{ inputs.go-proxy }}
-        STATICCHECK_VERSION: ${{ inputs.staticcheck-version }}
-      run: $GITHUB_ACTION_PATH/install.sh
-
     - name: Run presubmit checks
       shell: bash
       env:
@@ -54,4 +42,5 @@ runs:
         GOPROXY: ${{ inputs.go-proxy }}
         CHECK_STATICCHECK: ${{ inputs.check-staticcheck }}
         CHECK_REPLACE: ${{ inputs.check-replace }}
+        STATICCHECK_VERSION: ${{ inputs.staticcheck-version }}
       run: $GITHUB_ACTION_PATH/check.sh

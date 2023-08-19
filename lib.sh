@@ -15,14 +15,32 @@ check() {
     fi
 }
 
+# pkgpath prints the specified package name decorated with a version.
+# If the current module has a dependency on the package already, the package is
+# reported without a specific version; otherwise the given version is appended,
+# or "latest" if no specific version is given.
+pkgpath() {
+    local base="${1:?missing package path}"
+    local vers="${2:-latest}"
+    if go mod why "$base" | grep -q 'does not need package' ; then
+        echo "$base"@"$vers"
+    else
+        echo "$base"
+    fi
+}
+
 istrue() {
     local v="${1:-}"
     case "$v" in
         (y|yes|t|true|1)
             return 0
             ;;
-        (*)
+        (n|no|f|false|0)
             return 1
+            ;;
+        (*)
+            echo "Invalid Boolean flag '$v'" 1>&2
+            exit 1
             ;;
     esac
 }
