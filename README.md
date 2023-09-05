@@ -26,12 +26,12 @@ jobs:
     name: Go presubmit
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install Go ${{ matrix.go-version }}
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: stable
-    - uses: creachadair/go-presubmit-action@v1
+    - uses: creachadair/go-presubmit-action@v2
 ```
 
 [gha]: https://docs.github.com/en/actions
