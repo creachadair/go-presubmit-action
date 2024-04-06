@@ -2,7 +2,7 @@
 #
 # Run presubmit checks.
 #
-source "$(dirname $0)"/lib.sh
+source "$(dirname "${BASH_SOURCE[0]}")"/lib.sh
 
 # Repositories may contain multiple modules.
 # Search for directories containing go.mod files and repeat
