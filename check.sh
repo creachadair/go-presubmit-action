@@ -31,14 +31,14 @@ EOF
     go test -vet=all -race -cpu="${GO_TEST_CPU}" ./...
     check
 
-    if istrue "$CHECK_STATICCHECK" ; then
+    if istrue "${CHECK_STATICCHECK:-1}" ; then
         label "Running staticcheck"
-        scpath="$(pkgpath honnef.co/go/tools/cmd/staticcheck $STATICCHECK_VERSION)"
+        scpath="$(pkgpath honnef.co/go/tools/cmd/staticcheck ${STATICCHECK_VERSION:-latest})"
         go run "$scpath" ./...
         check
     fi
 
-    if istrue "$CHECK_REPLACE" ; then
+    if istrue "${CHECK_REPLACE:-1}" ; then
         label "Checking go.mod structure"
         # N.B. We are already in the module root here.
         if grep '^replace ' go.mod ; then
