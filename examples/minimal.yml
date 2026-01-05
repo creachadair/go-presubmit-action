@@ -15,7 +15,7 @@ jobs:
     name: Go presubmit
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Install Go ${{ matrix.go-version }}
       uses: actions/setup-go@v6
       with:
